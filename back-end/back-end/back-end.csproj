@@ -25,4 +25,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\business-layer\business-layer.csproj" />
+  </ItemGroup>
+
 </Project>

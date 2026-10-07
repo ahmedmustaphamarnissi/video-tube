@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="back-end/back-end.csproj" />
+  <Project Path="business-layer/business-layer.csproj" Id="29ab378e-1548-4db8-b9f8-1a45c3bbe5b7" />
+  <Project Path="DataAccessLayer/DataAccessLayer.csproj" Id="356aab7e-b2d5-4381-ae02-e792a6c60043" />
 </Solution>
