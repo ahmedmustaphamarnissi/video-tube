@@ -1,6 +1,4 @@
-###############################
 # General / OS
-###############################
 .DS_Store
 Thumbs.db
 ehthumbs.db
@@ -9,9 +7,7 @@ Desktop.ini
 *.tmp
 *.swp
 
-###############################
 # Environment / secrets
-###############################
 .env
 .env.*
 !.env.example
@@ -19,9 +15,7 @@ Desktop.ini
 *.p12
 secrets.json
 
-###############################
 # Back-end: ASP.NET Core / Visual Studio
-###############################
 # Build output
 [Bb]in/
 [Oo]bj/
@@ -81,9 +75,7 @@ launchSettings.json.user
 # EF Core / generated
 *.edmx.diagram
 
-###############################
 # Front-end: Angular / Node / VS Code
-###############################
 node_modules/
 dist/
 tmp/
