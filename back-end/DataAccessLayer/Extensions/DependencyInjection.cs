@@ -1,7 +1,7 @@
-﻿using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using DataAccessLayer.Configuration;
+using DataAccessLayer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,6 +34,10 @@ public static class DependencyInjection
             new AmazonS3Client(credentials, s3Config));
 
         services.AddSingleton(options);
+
+        // DAL services
+        services.AddSingleton<IFileStorageService, FileStorageService>();
+        services.AddScoped<VideosData>();
 
         return services;
     }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Services
+namespace DataAccessLayer.Services;
+
+public interface IFileStorageService
 {
-    internal class IFileStorageService
-    {
-    }
+    string GetPresignedUrl(string objectKey);
 }
