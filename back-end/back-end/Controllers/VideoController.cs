@@ -39,15 +39,21 @@ namespace back_end.Controllers
         }
 
         [HttpGet("category/{id}")]
-        public async Task<IActionResult> GetVideosByCategoryAsync(int categoryId, int pageNumber, int pageSize)
+        public async Task<IActionResult> GetVideosByCategoryAsync(
+    [FromRoute] int id,
+    [FromQuery] int pageNumber,
+    [FromQuery] int pageSize)
         {
             if (pageNumber <= 0 || pageSize <= 0)
-                return BadRequest("Page number and page size must be greater than zero.");
+                return BadRequest(
+                    "Page number and page size must be greater than zero.");
 
-            var res = await _clsVideos.GetVideosByCategoryAsync(categoryId, pageNumber, pageSize);
+            var res = await _clsVideos.GetVideosByCategoryAsync(
+                id, pageNumber, pageSize);
 
             if (res == null || res.Count == 0)
-                return NotFound($"Category with ID {categoryId} not found.");
+                return NotFound($"No videos found for category ID {id}.");
+
             return Ok(res);
         }
 
