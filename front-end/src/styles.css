@@ -1,1 +1,119 @@
-/* You can add global styles to this file, and also import other style files */
+/* ──────────────────────────────────────────────────────────
+   VideoTube – Global Styles
+   Angular 21 · Dark YouTube-like theme
+────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* ── CSS Design Tokens ── */
+:root {
+  --bg-primary:         #0f0f0f;
+  --bg-secondary:       #181818;
+  --bg-hover:           #272727;
+  --bg-header:          #0f0f0f;
+  --bg-sidebar:         #0f0f0f;
+
+  --text-primary:       #f1f1f1;
+  --text-secondary:     #aaaaaa;
+  --text-muted:         #717171;
+
+  --border-color:       #303030;
+
+  --accent-red:         #ff0000;
+  --accent-blue:        #3ea6ff;
+
+  --header-height:      56px;
+  --sidebar-width:      240px;
+  --sidebar-mini-width: 72px;
+
+  --radius-sm:          4px;
+  --radius-md:          8px;
+
+  --font-family:        'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-xs:       11px;
+  --font-size-sm:       12px;
+  --font-size-base:     14px;
+  --font-size-md:       16px;
+
+  --transition-fast:    0.15s ease;
+  --transition-mid:     0.25s ease;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Spinner ── */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── State containers ── */
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 24px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.state-container svg { opacity: 0.4; }
+.state-container p   { font-size: var(--font-size-md); color: var(--text-secondary); }
+.state-container small { font-size: var(--font-size-sm); color: var(--text-muted); }
