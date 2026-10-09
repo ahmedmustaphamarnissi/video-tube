@@ -22,6 +22,7 @@ export class VideoDetailsComponent implements OnInit, OnDestroy {
   readonly comments = signal<CommentDTO[]>([]);
   readonly loadState = signal<LoadState>('loading');
   readonly commentsState = signal<'loading' | 'success' | 'error'>('loading');
+  readonly showFullDescription = signal(false);
 
   private routeSub?: Subscription;
   private delayTimer?: ReturnType<typeof setTimeout>;
@@ -76,6 +77,7 @@ export class VideoDetailsComponent implements OnInit, OnDestroy {
     this.commentsState.set('loading');
     this.video.set(null);
     this.comments.set([]);
+    this.showFullDescription.set(false);
     if (this.delayTimer) clearTimeout(this.delayTimer);
 
     this.dataService.GetVideoDetailsAsync(id).subscribe({

@@ -189,15 +189,47 @@
 .vd-description {
   background: var(--bg-hover);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 14px 16px 10px;
   margin-bottom: 4px;
+  overflow: hidden;
 }
-.vd-description p {
+
+.vd-description-text {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
   line-height: 1.6;
   white-space: pre-wrap;
+  /* Clamp to 3 lines */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  transition: -webkit-line-clamp 0s;
 }
+
+/* When expanded: remove the clamp */
+.vd-description--expanded .vd-description-text {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  display: block;
+}
+
+.vd-show-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 8px;
+  padding: 2px 0;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.vd-show-more-btn:hover { color: var(--accent-blue); }
+
 
 /* ── Comments ── */
 .vd-comments { padding-top: 4px; }

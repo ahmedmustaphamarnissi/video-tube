@@ -112,8 +112,25 @@
 
         <!-- Description -->
         @if (v.description) {
-          <div class="vd-description">
-            <p>{{ v.description }}</p>
+          <div class="vd-description" [class.vd-description--expanded]="showFullDescription()">
+            <p class="vd-description-text">{{ v.description }}</p>
+            <button
+              class="vd-show-more-btn"
+              type="button"
+              (click)="showFullDescription.set(!showFullDescription())"
+              aria-label="Toggle description">
+              @if (showFullDescription()) {
+                Show less
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                </svg>
+              } @else {
+                Show more
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+                </svg>
+              }
+            </button>
           </div>
         }
 
