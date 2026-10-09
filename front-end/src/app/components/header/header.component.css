@@ -1,0 +1,187 @@
+:host {
+  display: block;
+}
+
+/* ── Header shell ── */
+.yt-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 100;
+  background-color: var(--bg-header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 8px;
+  border-bottom: 1px solid transparent;
+}
+
+/* ── Left ── */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 4px 4px;
+}
+
+.logo-desktop {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+
+.logo-mobile {
+  height: 24px;
+  width: auto;
+  display: none;
+}
+
+/* ── Centre ── */
+.header-center {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 640px;
+  gap: 8px;
+}
+
+.search-form {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  height: 40px;
+}
+
+.search-input-wrap {
+  flex: 1;
+  border: 1px solid #303030;
+  border-right: none;
+  border-radius: 40px 0 0 40px;
+  background-color: #121212;
+  overflow: hidden;
+}
+
+.search-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 16px;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 100%;
+  background-color: #222;
+  border: 1px solid #303030;
+  border-left: none;
+  border-radius: 0 40px 40px 0;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.search-btn:hover {
+  background-color: #333;
+}
+
+/* Mobile search button – hidden on desktop */
+.search-mobile-btn {
+  display: none;
+}
+
+/* ── Right ── */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Shared icon button ── */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.icon-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ── Avatar button ── */
+.avatar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 4px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ────────────────────────────────────────────────
+   Responsive
+──────────────────────────────────────────────── */
+
+/* Tablet – compact search */
+@media (max-width: 900px) {
+  .header-center {
+    max-width: 480px;
+  }
+}
+
+/* Mobile – hide full search bar, show icon instead */
+@media (max-width: 640px) {
+  .logo-desktop { display: none; }
+  .logo-mobile  { display: block; }
+  .search-form  { display: none; }
+  .search-mobile-btn { display: flex; }
+
+  .header-center {
+    flex: 0;
+  }
+}

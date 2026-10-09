@@ -1,0 +1,72 @@
+<header class="yt-header" role="banner">
+
+  <!-- ── Left: Hamburger + Logo ── -->
+  <div class="header-left">
+    <button
+      id="hamburger-btn"
+      class="icon-btn"
+      aria-label="Toggle sidebar menu"
+      (click)="onMenuClick()"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+      </svg>
+    </button>
+
+    <!-- Desktop logo -->
+    <a id="logo-link" class="logo-link" routerLink="/" aria-label="VideoTube – Go to home">
+      <img class="logo-desktop" src="/yt-logo.png" alt="VideoTube logo" />
+      <img class="logo-mobile" src="/yt-logo-mobile.png" alt="VideoTube" />
+    </a>
+  </div>
+
+  <!-- ── Centre: Search ── -->
+  <div class="header-center">
+    <form class="search-form" role="search" (submit)="$event.preventDefault()">
+      <div class="search-input-wrap">
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          placeholder="Search"
+          aria-label="Search VideoTube"
+        />
+      </div>
+      <button id="search-btn" class="search-btn" type="submit" aria-label="Submit search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+      </button>
+    </form>
+
+    <!-- Mobile search icon (shows on narrow screens) -->
+    <button id="search-mobile-btn" class="icon-btn search-mobile-btn" aria-label="Search">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ── Right: Actions + Avatar ── -->
+  <div class="header-right">
+    <!-- Create -->
+    <button id="create-btn" class="icon-btn" aria-label="Create video">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+      </svg>
+    </button>
+
+    <!-- Notifications -->
+    <button id="notifications-btn" class="icon-btn" aria-label="Notifications">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+      </svg>
+    </button>
+
+    <!-- Profile Avatar -->
+    <button id="profile-btn" class="avatar-btn" aria-label="Your profile">
+      <img class="avatar" src="/profile.png" alt="User avatar" />
+    </button>
+  </div>
+
+</header>
