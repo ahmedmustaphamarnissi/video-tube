@@ -1,0 +1,186 @@
+<div class="vd-page">
+
+  <!-- ── Loading ── -->
+  @if (loadState() === 'loading') {
+    <div class="state-container">
+      <div class="spinner"></div>
+      <p>Loading video…</p>
+    </div>
+  }
+
+  <!-- ── Error ── -->
+  @if (loadState() === 'error') {
+    <div class="state-container">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      </svg>
+      <p>Could not load this video.</p>
+      <small>Make sure the VideoTube API is running at localhost:7028</small>
+      <a class="retry-btn" routerLink="/">← Back to Home</a>
+    </div>
+  }
+
+  <!-- ── Success ── -->
+  @if (loadState() === 'success' && video(); as v) {
+    <div class="vd-layout">
+
+      <!-- ── Left column: player + info ── -->
+      <div class="vd-main">
+
+        <!-- Player / Thumbnail -->
+        <div class="vd-player">
+          @if (v.videoUrl) {
+            <video class="vd-video" controls [src]="v.videoUrl"
+                   [poster]="v.thumbnailUrl"
+                   (error)="onImgError($event, thumbnailFallback)">
+              Your browser does not support the video tag.
+            </video>
+          } @else {
+            <div class="vd-thumbnail-wrap">
+              <img class="vd-thumbnail"
+                   [src]="v.thumbnailUrl"
+                   [alt]="v.title"
+                   (error)="onImgError($event, thumbnailFallback)" />
+              <!-- Play overlay -->
+              <div class="vd-play-overlay">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                </svg>
+              </div>
+              <span class="vd-duration-badge">{{ formattedDuration() }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Video title -->
+        <h1 class="vd-title">{{ v.title }}</h1>
+
+        <!-- Meta bar: views + date + actions -->
+        <div class="vd-meta-bar">
+          <span class="vd-views">{{ formattedViews() }} • {{ formattedDate() }}</span>
+          <div class="vd-actions">
+            <!-- Like -->
+            <button id="like-btn" class="vd-action-btn" aria-label="Like">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
+              </svg>
+              <span>{{ formattedLikes() }}</span>
+            </button>
+            <!-- Dislike -->
+            <button id="dislike-btn" class="vd-action-btn" aria-label="Dislike">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
+              </svg>
+            </button>
+            <!-- Share -->
+            <button id="share-btn" class="vd-action-btn" aria-label="Share">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+              </svg>
+              <span>Share</span>
+            </button>
+            <!-- Save -->
+            <button id="save-btn" class="vd-action-btn" aria-label="Save">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+              </svg>
+              <span>Save</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="vd-divider"></div>
+
+        <!-- Channel info + description -->
+        <div class="vd-channel-block">
+          <img class="vd-channel-avatar"
+               [src]="v.channelProfileUrl"
+               [alt]="v.channelName"
+               (error)="onImgError($event, avatarFallback)" />
+          <div class="vd-channel-info">
+            <div class="vd-channel-name-row">
+              <span class="vd-channel-name">{{ v.channelName }}</span>
+              @if (v.isVerified) {
+                <svg class="vd-verified" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/>
+                </svg>
+              }
+            </div>
+          </div>
+          <button id="subscribe-btn" class="vd-subscribe-btn" type="button">Subscribe</button>
+        </div>
+
+        <!-- Description -->
+        @if (v.description) {
+          <div class="vd-description">
+            <p>{{ v.description }}</p>
+          </div>
+        }
+
+        <div class="vd-divider"></div>
+
+        <!-- ── Comments section ── -->
+        <div class="vd-comments">
+          <h2 class="vd-comments-title">
+            @if (commentsState() === 'success') {
+              {{ comments().length }} Comment{{ comments().length !== 1 ? 's' : '' }}
+            } @else {
+              Comments
+            }
+          </h2>
+
+          @if (commentsState() === 'loading') {
+            <div class="comments-loading">
+              <div class="spinner"></div>
+            </div>
+          }
+
+          @if (commentsState() === 'error') {
+            <p class="comments-error">Could not load comments.</p>
+          }
+
+          @if (commentsState() === 'success') {
+            @if (comments().length === 0) {
+              <p class="comments-empty">No comments yet.</p>
+            } @else {
+              <ul class="comments-list">
+                @for (c of comments(); track c.commentDate + c.userName) {
+                  <li class="comment-item">
+                    <img class="comment-avatar"
+                         [src]="c.userProfileUrl"
+                         [alt]="c.userName"
+                         (error)="onImgError($event, avatarFallback)" />
+                    <div class="comment-body">
+                      <div class="comment-header">
+                        <span class="comment-user">{{ c.userName }}</span>
+                        <span class="comment-date">{{ formatCommentDate(c.commentDate) }}</span>
+                      </div>
+                      <p class="comment-text">{{ c.commentText }}</p>
+                      <div class="comment-actions">
+                        <button class="comment-action-btn" aria-label="Like comment">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
+                          </svg>
+                          <span>{{ formatCommentLikes(c.commentLikes) }}</span>
+                        </button>
+                        <button class="comment-action-btn" aria-label="Dislike comment">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
+                          </svg>
+                        </button>
+                        <button class="comment-action-btn comment-reply-btn">Reply</button>
+                      </div>
+                    </div>
+                  </li>
+                }
+              </ul>
+            }
+          }
+        </div>
+
+      </div><!-- /vd-main -->
+
+    </div><!-- /vd-layout -->
+  }
+
+</div>
