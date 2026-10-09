@@ -37,7 +37,7 @@ public class CommentsData : BaseData
                 commentText = c.CommentText,
                 commentDate = c.CommentDate,
                 userName = c.User.UserName,
-                userProfileUrl = c.User.PictureKey,
+                userProfileUrl = _fileStorageService.GetPresignedUrl(c.User.PictureKey),
                 commentLikes = c.CommentLikesCount,
                 commentDislikes = c.CommentDislikesCount
             })
