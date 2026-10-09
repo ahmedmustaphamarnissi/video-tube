@@ -1,0 +1,89 @@
+:host {
+  display: block;
+}
+
+.home-page {
+  padding: 24px 24px 48px;
+}
+
+/* ── 4-column grid on desktop ── */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 8px;
+}
+
+/* ── Load More ── */
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 8px;
+}
+
+.load-more-btn {
+  padding: 10px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.load-more-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ── Retry button ── */
+.retry-btn {
+  margin-top: 8px;
+  padding: 8px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.retry-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ────────────────────────────────────────────
+   Responsive grid
+──────────────────────────────────────────── */
+
+/* 3 columns on medium screens */
+@media (max-width: 1280px) {
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 2 columns on tablet */
+@media (max-width: 900px) {
+  .home-page {
+    padding: 16px 16px 48px;
+  }
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 8px;
+  }
+}
+
+/* 1 column on mobile */
+@media (max-width: 540px) {
+  .home-page {
+    padding: 12px 12px 48px;
+  }
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 24px 0;
+  }
+}
