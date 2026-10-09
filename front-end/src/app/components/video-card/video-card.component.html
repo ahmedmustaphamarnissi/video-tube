@@ -1,6 +1,6 @@
 <article class="video-card">
   <!-- Thumbnail -->
-  <a class="thumbnail-wrap" href="#" (click)="$event.preventDefault()">
+  <a class="thumbnail-wrap" [routerLink]="['/videos', video().videoId]">
     <img
       class="thumbnail"
       [src]="video().thumbnailUrl"
@@ -26,7 +26,7 @@
 
     <!-- Text info -->
     <div class="video-info">
-      <h3 class="video-title" [title]="video().title">{{ video().title }}</h3>
+      <a class="video-title" [routerLink]="['/videos', video().videoId]" [title]="video().title">{{ video().title }}</a>
 
       <div class="channel-row">
         <span class="channel-name">{{ video().channelName }}</span>

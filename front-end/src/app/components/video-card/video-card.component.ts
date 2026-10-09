@@ -1,10 +1,11 @@
-﻿import { Component, input, computed } from '@angular/core';
+import { Component, input, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { VideoDTO } from '../../interfaces/VideoDTO';
 
 @Component({
   selector: 'app-video-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './video-card.component.html',
   styleUrl: './video-card.component.css',
 })

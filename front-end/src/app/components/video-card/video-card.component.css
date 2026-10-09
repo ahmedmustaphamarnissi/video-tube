@@ -64,6 +64,7 @@
 }
 
 .video-title {
+  display: block;
   font-size: var(--font-size-base);
   font-weight: 500;
   color: var(--text-primary);
@@ -73,6 +74,10 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   margin: 0 0 4px;
+  text-decoration: none;
+}
+.video-title:hover {
+  color: var(--text-primary);
 }
 
 .channel-row {
