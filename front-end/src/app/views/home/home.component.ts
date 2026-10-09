@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { DataService } from '../../services/data-service';
 import { VideoDTO } from '../../interfaces/VideoDTO';
 import { VideoCardComponent } from '../../components/video-card/video-card.component';
@@ -12,7 +12,7 @@ type LoadState = 'loading' | 'success' | 'error' | 'empty';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   private readonly dataService = inject(DataService);
 
   readonly videos = signal<VideoDTO[]>([]);
@@ -25,20 +25,40 @@ export class HomeComponent implements OnInit {
   readonly hasMore = signal(true);
   readonly loadingMore = signal(false);
 
+  private delayTimer?: ReturnType<typeof setTimeout>;
+
   ngOnInit(): void {
     this.loadVideos();
   }
 
+  ngOnDestroy(): void {
+    if (this.delayTimer) clearTimeout(this.delayTimer);
+  }
+
   private loadVideos(): void {
     this.loadState.set('loading');
+    if (this.delayTimer) clearTimeout(this.delayTimer);
+
     this.dataService.GetHomeVideosAsync(this.currentPage, this.pageSize).subscribe({
       next: (data: VideoDTO[]) => {
-        this.videos.set(data);
-        this.loadState.set(data.length === 0 ? 'empty' : 'success');
-        this.hasMore.set(data.length === this.pageSize);
+        if (data.length === 0) {
+          // Wait 5 seconds before showing empty state
+          this.delayTimer = setTimeout(() => {
+            this.videos.set(data);
+            this.loadState.set('empty');
+            this.hasMore.set(false);
+          }, 5000);
+        } else {
+          this.videos.set(data);
+          this.loadState.set('success');
+          this.hasMore.set(data.length === this.pageSize);
+        }
       },
       error: () => {
-        this.loadState.set('error');
+        // Wait 5 seconds before showing error state
+        this.delayTimer = setTimeout(() => {
+          this.loadState.set('error');
+        }, 5000);
       },
     });
   }

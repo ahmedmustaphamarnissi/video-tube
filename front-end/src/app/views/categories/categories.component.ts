@@ -33,6 +33,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   private readonly pageSize = 20;
   private routeSub?: Subscription;
   private currentCategoryId = 0;
+  private delayTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit(): void {
     this.routeSub = this.route.paramMap.subscribe(params => {
@@ -60,20 +61,35 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
+    if (this.delayTimer) clearTimeout(this.delayTimer);
   }
 
   private loadVideos(): void {
     this.loadState.set('loading');
+    if (this.delayTimer) clearTimeout(this.delayTimer);
+
     this.dataService
       .GetVideosByCategoryAsync(this.currentCategoryId, this.currentPage, this.pageSize)
       .subscribe({
         next: (data: VideoDTO[]) => {
-          this.videos.set(data);
-          this.loadState.set(data.length === 0 ? 'empty' : 'success');
-          this.hasMore.set(data.length === this.pageSize);
+          if (data.length === 0) {
+            // Wait 5 seconds before showing empty state
+            this.delayTimer = setTimeout(() => {
+              this.videos.set(data);
+              this.loadState.set('empty');
+              this.hasMore.set(false);
+            }, 5000);
+          } else {
+            this.videos.set(data);
+            this.loadState.set('success');
+            this.hasMore.set(data.length === this.pageSize);
+          }
         },
         error: () => {
-          this.loadState.set('error');
+          // Wait 5 seconds before showing error state
+          this.delayTimer = setTimeout(() => {
+            this.loadState.set('error');
+          }, 5000);
         },
       });
   }
