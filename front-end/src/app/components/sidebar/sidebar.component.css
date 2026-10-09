@@ -1,0 +1,108 @@
+:host {
+  display: block;
+}
+
+/* ── Sidebar shell ── */
+.sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0 24px;
+  z-index: 90;
+  transition: transform var(--transition-mid);
+  scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar--closed {
+  transform: translateX(-100%);
+}
+
+/* ── Section ── */
+.sidebar-section {
+  padding: 4px 0;
+}
+
+/* ── Sidebar item (shared between <a> and <button>) ── */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0 12px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+}
+
+.sidebar-item:hover:not([disabled]) {
+  background-color: var(--bg-hover);
+}
+
+.sidebar-item.active {
+  background-color: var(--bg-hover);
+  font-weight: 500;
+}
+
+.sidebar-item[disabled] {
+  cursor: default;
+  color: var(--text-secondary);
+}
+
+.item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-base);
+}
+
+/* ── Divider ── */
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 8px 0;
+}
+
+/* ── Footer ── */
+.sidebar-footer {
+  padding: 16px 12px 8px;
+}
+
+.footer-text {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footer-text.muted {
+  margin-top: 2px;
+}
+
+/* ────────────────────────────────────────────
+   Responsive: mobile drawer
+──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .sidebar {
+    width: 80vw;
+    max-width: 280px;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+  }
+}

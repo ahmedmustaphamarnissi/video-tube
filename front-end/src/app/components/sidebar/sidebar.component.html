@@ -1,0 +1,115 @@
+<nav class="sidebar" [class.sidebar--closed]="!isOpen()" aria-label="Main navigation">
+
+  <!-- ── Top static items: Home, Trending, Films, Live ── -->
+  <ul class="sidebar-section">
+
+    <!-- Home – navigates to / -->
+    <li>
+      <a class="sidebar-item"
+         routerLink="/"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         aria-label="Home">
+        <app-category-icon iconName="home" [size]="20" />
+        <span class="item-label">Home</span>
+      </a>
+    </li>
+
+    <!-- Trending – visual only -->
+    <li>
+      <button class="sidebar-item" type="button" disabled aria-label="Trending (not available)">
+        <app-category-icon iconName="trending" [size]="20" />
+        <span class="item-label">Trending</span>
+      </button>
+    </li>
+
+    <!-- Films – visual only -->
+    <li>
+      <button class="sidebar-item" type="button" disabled aria-label="Films (not available)">
+        <app-category-icon iconName="films" [size]="20" />
+        <span class="item-label">Films</span>
+      </button>
+    </li>
+
+    <!-- Live – visual only -->
+    <li>
+      <button class="sidebar-item" type="button" disabled aria-label="Live (not available)">
+        <app-category-icon iconName="live" [size]="20" />
+        <span class="item-label">Live</span>
+      </button>
+    </li>
+  </ul>
+
+  <hr class="sidebar-divider" />
+
+  <!-- ── API-driven category items ── -->
+  @if (categoryState.categories().length > 0) {
+    <ul class="sidebar-section">
+      @for (cat of categoryState.categories(); track cat.categoryId) {
+        <li>
+          <a class="sidebar-item"
+             [routerLink]="['/categories', cat.categoryId]"
+             routerLinkActive="active"
+             [attr.aria-label]="cat.categoryName">
+            <app-category-icon [iconName]="cat.iconName?.toLowerCase() ?? null" [size]="20" />
+            <span class="item-label">{{ cat.categoryName }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+    <hr class="sidebar-divider" />
+  }
+
+  <!-- ── Learning & Fashion ── -->
+  <ul class="sidebar-section">
+    <li>
+      <button class="sidebar-item" type="button" disabled>
+        <app-category-icon iconName="learning" [size]="20" />
+        <span class="item-label">Learning</span>
+      </button>
+    </li>
+    <li>
+      <button class="sidebar-item" type="button" disabled>
+        <app-category-icon iconName="fashion" [size]="20" />
+        <span class="item-label">Fashion &amp; Beauty</span>
+      </button>
+    </li>
+  </ul>
+
+  <hr class="sidebar-divider" />
+
+  <!-- ── Settings / Help ── -->
+  <ul class="sidebar-section">
+    <li>
+      <button class="sidebar-item" type="button" disabled>
+        <app-category-icon iconName="settings" [size]="20" />
+        <span class="item-label">Settings</span>
+      </button>
+    </li>
+    <li>
+      <button class="sidebar-item" type="button" disabled>
+        <app-category-icon iconName="history" [size]="20" />
+        <span class="item-label">Report History</span>
+      </button>
+    </li>
+    <li>
+      <button class="sidebar-item" type="button" disabled>
+        <app-category-icon iconName="help" [size]="20" />
+        <span class="item-label">Help</span>
+      </button>
+    </li>
+    <li>
+      <button class="sidebar-item" type="button" disabled>
+        <app-category-icon iconName="feedback" [size]="20" />
+        <span class="item-label">Send Feedback</span>
+      </button>
+    </li>
+  </ul>
+
+  <!-- ── Footer attribution ── -->
+  <div class="sidebar-footer">
+    <p class="footer-text">VideoTube Clone &copy; 2024</p>
+    <p class="footer-text muted">Built with Angular 21</p>
+  </div>
+
+</nav>
