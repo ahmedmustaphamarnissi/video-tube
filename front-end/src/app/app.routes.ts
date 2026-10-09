@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./views/categories/categories.component').then(m => m.CategoriesComponent),
   },
   {
+    path: 'videos/:id',
+    loadComponent: () =>
+      import('./views/video-details/video-details.component').then(m => m.VideoDetailsComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
