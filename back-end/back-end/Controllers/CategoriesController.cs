@@ -13,5 +13,13 @@ namespace back_end.Controllers
         {
             _config = config;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategoriesAsync()
+        {
+            var clsCategories = new business_layer.clsCategories(_config);
+            var categories = await clsCategories.GetCategoriesAsync();
+            return Ok(categories);
+        }
     }
 }
