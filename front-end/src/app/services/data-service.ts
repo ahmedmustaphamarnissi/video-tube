@@ -18,8 +18,11 @@ export class DataService {
   }
 
   GetVideosByCategoryAsync(id: number, page: number, items: number): Observable<VideoDTO[]> {
-    const params = new HttpParams().set('categoryId', id).set('pageNumber', page).set('pageSize', items);
-    return this.http.get<VideoDTO[]>(`http://localhost:7028/api/videos/category/${id}`, { params });
+    const params = new HttpParams().set('pageNumber', page).set('pageSize', items);
+
+    return this.http.get<VideoDTO[]>(`https://localhost:7028/api/videos/category/${id}`, {
+      params,
+    });
   }
 
   GetVideoDetailsAsync(id: number): Observable<VideoDetailsDTO> {
